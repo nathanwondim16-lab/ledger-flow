@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class HomeScreen extends UserInput {
@@ -11,7 +12,7 @@ public class HomeScreen extends UserInput {
     public void displayOptions() {
         welcomeMessage();
         String message = """
-               Select one of the following options below
+               To get started please select one of the following options below
                
                D) Add Deposit
                P) Make Payemnt (Debit)
@@ -20,7 +21,8 @@ public class HomeScreen extends UserInput {
                
                Select option:\s""";
         System.out.print(message);
-        String userChoice = scanner.nextLine().strip();
+        String userChoice = scanner.next().strip();
+        System.out.print("\r ");
         TransactionProcessor processor = new TransactionProcessor();
         while(!userChoice.equalsIgnoreCase("X")) {
             switch(userChoice.toUpperCase()) {
@@ -42,8 +44,9 @@ public class HomeScreen extends UserInput {
     }
 
     private Transaction getTransactionDetails() {
-        System.out.print("Enter in the transaction date using this format (YYYY-MM-DD): ");
-        LocalDate transactionDate = LocalDate.parse(scanner.nextLine().strip());
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        System.out.print("Enter in the transaction date using this format (MM/DD/YYYY): ");
+        LocalDate transactionDate = LocalDate.parse(scanner.nextLine().strip(),dateFormat);
 
         System.out.print("Enter in the transaction time using this format (HH:mm:ss): ");
         LocalTime transactionTime = LocalTime.parse(scanner.nextLine().strip());

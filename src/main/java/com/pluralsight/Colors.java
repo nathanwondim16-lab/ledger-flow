@@ -3,6 +3,7 @@ package com.pluralsight;
 public enum Colors {
 
     TRON(125, 253, 254),
+    GOLD(255, 215, 0),
     GREEN(76, 175, 80),
     ORANGE(255, 87, 34),
     AMBER(255,191, 0),

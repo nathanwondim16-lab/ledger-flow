@@ -1,7 +1,9 @@
 package com.pluralsight;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Transaction {
     private final LocalDate transactionDate;
@@ -42,7 +44,8 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return transactionDate + "|" + transactionTime + "|" + transactionDescription + "|"
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        return transactionDate.format(dateFormat) + "|" + transactionTime + "|" + transactionDescription + "|"
                 + vendor + "|" + transactionAmount;
     }
 
@@ -50,5 +53,4 @@ public class Transaction {
         return String.format(Colors.TRON.printWithColor("║ %-10s ║ %-8s ║ %-18s ║ %-18s ║ $%-12.2f║"),
                 transactionDate, transactionTime, transactionDescription, vendor, transactionAmount);
     }
-
 }

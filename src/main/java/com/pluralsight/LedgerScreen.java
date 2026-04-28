@@ -6,7 +6,7 @@ public class LedgerScreen extends UserInput {
     @Override
     public void displayOptions() { // Maybe make this protected
         String ledgerOptions = """
-                Select one of the following options below
+                \nSelect one of the following options below
                 
                 A) Display All Entries
                 D) Deposits
