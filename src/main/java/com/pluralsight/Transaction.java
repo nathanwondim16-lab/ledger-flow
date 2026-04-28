@@ -45,4 +45,10 @@ public class Transaction {
         return transactionDate + "|" + transactionTime + "|" + transactionDescription + "|"
                 + vendor + "|" + transactionAmount;
     }
+
+    public String ledgerText() {
+        return String.format(Colors.TRON.printWithColor("║ %-10s ║ %-8s ║ %-18s ║ %-18s ║ $%-12.2f║"),
+                transactionDate, transactionTime, transactionDescription, vendor, transactionAmount);
+    }
+
 }
