@@ -20,6 +20,26 @@ public class Transaction {
         this.transactionAmount = transactionAmount;
     }
 
+    public LocalDate getTransactionDate() {
+        return transactionDate;
+    }
+
+    public LocalTime getTransactionTime() {
+        return transactionTime;
+    }
+
+    public String getTransactionDescription() {
+        return transactionDescription;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public double getTransactionAmount() {
+        return transactionAmount;
+    }
+
     @Override
     public String toString() {
         return transactionDate + "|" + transactionTime + "|" + transactionDescription + "|"
