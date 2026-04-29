@@ -8,15 +8,16 @@ public class HomeScreen extends ScreenManager {
 
     public void displayOptions() {
         welcomeMessage();
-        String message = """
-                \nTo get started please select one of the following options below
-                
-                D) Add Deposit
-                P) Make Payment (Debit)
-                L) Ledger
-                X) Exit
-                
-                Select option:\s""";
+
+        String message = Colors.CHAMPAGNE_SILVER.printWithColor("""
+              To get started please select one of the following options below
+              
+              D) Add Deposit
+              P) Make Payment (Debit)
+              L) Ledger
+              X) Exit
+              
+              Select option:\s""");
         System.out.print(message);
         String userChoice = scanner.nextLine().strip();
         while (!userChoice.equalsIgnoreCase("X")) {
@@ -26,7 +27,8 @@ public class HomeScreen extends ScreenManager {
                 }
 
                 case "L" -> {
-                    LedgerScreen ledgerScreen = new LedgerScreen();
+
+                    LedgerScreen ledgerScreen = new LedgerScreen(); // Get rid of this and make LedgerScreen class static and displayOptions() static
                     ledgerScreen.displayOptions();
                 }
 
@@ -34,6 +36,7 @@ public class HomeScreen extends ScreenManager {
             }
             System.out.print(message);
             userChoice = scanner.nextLine().strip();
+            System.out.println("\n");
         }
         stop();
     }
