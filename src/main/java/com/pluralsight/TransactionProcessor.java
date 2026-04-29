@@ -15,8 +15,7 @@ import java.util.List;
 public class TransactionProcessor {
     protected List<Transaction> transactionList = new ArrayList<>();
 
-    protected void recordTransactions(Transaction transaction) {
-        // Write conditional to check if transactions file already exists if it doesn't write the header to "date|time|description|vendor|amount"
+    protected static void recordTransactions(Transaction transaction) {
         Path path = Path.of("Transactions.csv");
         boolean doesFileExist = Files.exists(path);
 
@@ -32,15 +31,14 @@ public class TransactionProcessor {
 
     protected void readTransactions() {
         transactionList.clear();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+
         try(BufferedReader reader = new BufferedReader(new FileReader("Transactions.csv"))) {
             reader.readLine(); // Skips header
             String line;
             while((line = reader.readLine()) != null) {
                 String[] columns = line.split("\\|");
-                LocalDate transactionDate = LocalDate.parse(columns[0], dateFormatter);
-                LocalTime transactionTime = LocalTime.parse(columns[1], timeFormatter);
+                LocalDate transactionDate = LocalDate.parse(columns[0], DateTimeFormats.DATE);
+                LocalTime transactionTime = LocalTime.parse(columns[1], DateTimeFormats.TIME);
                 String transactionDescription = columns[2];
                 String vendor = columns[3];
                 double transactionAmount = Double.parseDouble(columns[4]);

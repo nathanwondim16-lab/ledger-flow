@@ -3,15 +3,13 @@ package com.pluralsight;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Date;
 import java.util.Scanner;
 
 public class TransactionForm {
-    private final Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
 
-    protected Transaction getTransactionDetails() {
+    protected static void getTransactionDetails() {
         LocalDate transactionDate = askForDate();
         LocalTime transactionTime = askForTime();
 
@@ -23,39 +21,59 @@ public class TransactionForm {
 
         double transactionAmount = askForAmount();
 
+        Transaction submitTransaction = new Transaction(transactionDate, transactionTime, transactionDescription, vendor, transactionAmount);
+        boolean transactionConfirmed = requestTransactionConfirmation(submitTransaction);
 
-        System.out.println("\nTransaction recorded \uD83E\uDDFE✅\n");
-
-        return new Transaction(transactionDate, transactionTime, transactionDescription, vendor, transactionAmount);
+        if(transactionConfirmed) {
+            System.out.println("\nTransaction recorded \uD83E\uDDFE✅\n");
+            TransactionProcessor.recordTransactions(submitTransaction);
+        } else {
+            System.out.println("\nTransaction deleted ❌");
+        }
     }
 
-    private LocalDate askForDate() {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+
+    // Method displays confirmation summary prompting user to confirm that they want to submit the transaction
+    private static boolean requestTransactionConfirmation(Transaction transaction) {
+        System.out.println("\n\nPlease confirm this transaction");
+
+        System.out.printf("Date: %-20s\n", transaction.getTransactionDate().format(DateTimeFormats.DATE));
+        System.out.printf("Time: %-20s\n", transaction.getTransactionTime().format(DateTimeFormats.TIME));
+        System.out.printf("Description: %-20s\n", transaction.getTransactionDescription());
+        System.out.printf("Vendor: %-20s\n", transaction.getVendor());
+        System.out.printf("Amount: %-20s\n", transaction.getTransactionAmount());
+
+
+        System.out.print("\nSave transaction? (Y/N) ");
+        return scanner.nextLine().strip().equalsIgnoreCase("Y");
+    }
+
+
+    private static LocalDate askForDate() {
         while(true) {
             System.out.print("Enter transaction date (e.g., 04/27/26): ");
             String date = scanner.nextLine().strip();
             try {
-                return LocalDate.parse(date, dateFormatter);
+                return LocalDate.parse(date, DateTimeFormats.DATE);
             } catch (Exception e) {
                 System.out.println("Invalid date format. Please try again");
             }
         }
     }
 
-    private LocalTime askForTime() {
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+    private static LocalTime askForTime() {
         while(true) {
             System.out.print("Enter transaction time (e.g., 03:15 PM): ");
             String time = scanner.nextLine().strip();
             try {
-                return LocalTime.parse(time, timeFormatter);
+                return LocalTime.parse(time, DateTimeFormats.TIME);
             } catch (Exception e) {
                 System.out.println("Invalid date format. Please try again");
             }
         }
     }
 
-    private double askForAmount() {
+    private static double askForAmount() {
         while(true) {
             System.out.print("Enter transaction amount: $");
             String amount = scanner.nextLine().strip();

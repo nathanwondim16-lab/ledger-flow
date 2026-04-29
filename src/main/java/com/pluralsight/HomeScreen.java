@@ -19,12 +19,10 @@ public class HomeScreen extends ScreenManager {
                 Select option:\s""";
         System.out.print(message);
         String userChoice = scanner.nextLine().strip();
-        TransactionProcessor processor = new TransactionProcessor();
-        TransactionForm transactionForm = new TransactionForm();
         while (!userChoice.equalsIgnoreCase("X")) {
             switch (userChoice.toUpperCase()) {
                 case "D", "P" -> {
-                    processor.recordTransactions(transactionForm.getTransactionDetails());
+                    TransactionForm.getTransactionDetails();
                 }
 
                 case "L" -> {
