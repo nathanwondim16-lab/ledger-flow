@@ -64,7 +64,8 @@ public abstract class UserInput {
         System.out.println("""
                            \n
                 💻 Thanks for using LedgerFlow 🛒
-                           See you next transaction 👋
+                
+                See you next transaction 👋
                 """);
     }
 

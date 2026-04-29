@@ -12,17 +12,16 @@ public class HomeScreen extends UserInput {
     public void displayOptions() {
         welcomeMessage();
         String message = """
-               To get started please select one of the following options below
+               \nTo get started please select one of the following options below
                
                D) Add Deposit
-               P) Make Payemnt (Debit)
+               P) Make Payment (Debit)
                L) Ledger
                X) Exit
                
                Select option:\s""";
         System.out.print(message);
-        String userChoice = scanner.next().strip();
-        System.out.print("\r ");
+        String userChoice = scanner.nextLine().strip();
         TransactionProcessor processor = new TransactionProcessor();
         while(!userChoice.equalsIgnoreCase("X")) {
             switch(userChoice.toUpperCase()) {
@@ -43,21 +42,23 @@ public class HomeScreen extends UserInput {
         stop();
     }
 
+    // Consider moving this method to another class
     private Transaction getTransactionDetails() {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        System.out.print("Enter in the transaction date using this format (MM/DD/YYYY): ");
-        LocalDate transactionDate = LocalDate.parse(scanner.nextLine().strip(),dateFormat);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+        System.out.print("Enter transaction date (e.g., 04/27/26): ");
+        LocalDate transactionDate = LocalDate.parse(scanner.nextLine().strip(), dateFormatter);
 
-        System.out.print("Enter in the transaction time using this format (HH:mm:ss): ");
-        LocalTime transactionTime = LocalTime.parse(scanner.nextLine().strip());
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+        System.out.print("Enter transaction time (e.g., 03:15 PM): ");
+        LocalTime transactionTime = LocalTime.parse(scanner.nextLine().strip(), timeFormatter);
 
-        System.out.print("Enter in the description of the transaction: ");
+        System.out.print("Enter description of the transaction: ");
         String transactionDescription = scanner.nextLine().strip();
 
-        System.out.print("Enter in the name of the vendor: ");
+        System.out.print("Enter name of the vendor: ");
         String vendor = scanner.nextLine().strip();
 
-        System.out.print("Enter in the transaction amount: $");
+        System.out.print("Enter transaction amount: $");
         double transactionAmount = Double.parseDouble(scanner.nextLine());
 
         System.out.println("\nTransaction recorded \uD83E\uDDFE✅\n");

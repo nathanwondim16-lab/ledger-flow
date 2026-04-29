@@ -1,6 +1,5 @@
 package com.pluralsight;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +10,9 @@ public class Transaction {
     private final String transactionDescription;
     private final String vendor;
     private final double transactionAmount;
+
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+    private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
 
     public Transaction(LocalDate transactionDate, LocalTime transactionTime
                        ,String transactionDescription, String vendor, double transactionAmount) {
@@ -44,13 +46,12 @@ public class Transaction {
 
     @Override
     public String toString() {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        return transactionDate.format(dateFormat) + "|" + transactionTime + "|" + transactionDescription + "|"
+        return transactionDate.format(dateFormatter) + "|" + transactionTime.format(timeFormatter) + "|" + transactionDescription + "|"
                 + vendor + "|" + transactionAmount;
     }
 
     public String ledgerText() {
-        return String.format(Colors.TRON.printWithColor("║ %-10s ║ %-8s ║ %-18s ║ %-18s ║ $%-12.2f║"),
-                transactionDate, transactionTime, transactionDescription, vendor, transactionAmount);
+        return String.format(Colors.TRON.printWithColor("║ %-10s ║ %-10s ║ %-18s ║ %-18s ║ $%-12.2f║"),
+                transactionDate.format(dateFormatter), transactionTime.format(timeFormatter), transactionDescription, vendor, transactionAmount);
     }
 }

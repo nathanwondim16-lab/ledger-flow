@@ -15,7 +15,6 @@ public class LedgerScreen extends UserInput {
                 H) Home - Go back to the homepage
                 
                 Select option:\s""";
-
         Ledger ledger = new Ledger();
         System.out.print(ledgerOptions);
         String userChoice = scanner.nextLine().strip();

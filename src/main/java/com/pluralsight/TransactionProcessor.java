@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +16,14 @@ public class TransactionProcessor {
     protected List<Transaction> transactionList = new ArrayList<>();
 
     protected void recordTransactions(Transaction transaction) {
+        // Write conditional to check if transactions file already exists if it doesn't write the header to "date|time|description|vendor|amount"
+        Path path = Path.of("Transactions.csv");
+        boolean doesFileExist = Files.exists(path);
+
         try(BufferedWriter writer = new BufferedWriter(new FileWriter("Transactions.csv", true))) {
+            if(!doesFileExist) {
+                writer.write("date|time|description|vendor|amount\n");
+            }
             writer.write(transaction.toString() + "\n");
         } catch (Exception e) {
             System.out.println("Something went wrong when writing to the file " + e.getMessage());
@@ -23,14 +32,15 @@ public class TransactionProcessor {
 
     protected void readTransactions() {
         transactionList.clear();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
         try(BufferedReader reader = new BufferedReader(new FileReader("Transactions.csv"))) {
+            reader.readLine(); // Skips header
             String line;
             while((line = reader.readLine()) != null) {
                 String[] columns = line.split("\\|");
-                LocalDate transactionDate = LocalDate.parse(columns[0], dateFormat);
-                LocalTime transactionTime = LocalTime.parse(columns[1], timeFormat);
+                LocalDate transactionDate = LocalDate.parse(columns[0], dateFormatter);
+                LocalTime transactionTime = LocalTime.parse(columns[1], timeFormatter);
                 String transactionDescription = columns[2];
                 String vendor = columns[3];
                 double transactionAmount = Double.parseDouble(columns[4]);
