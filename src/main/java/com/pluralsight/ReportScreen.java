@@ -1,6 +1,6 @@
 package com.pluralsight;
 
-public class ReportScreen extends UserInput {
+public class ReportScreen extends ScreenManager {
 
 
     public void displayOptions() {

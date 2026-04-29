@@ -1,6 +1,6 @@
 package com.pluralsight;
 
-public class LedgerScreen extends UserInput {
+public class LedgerScreen extends ScreenManager {
 
 
     @Override

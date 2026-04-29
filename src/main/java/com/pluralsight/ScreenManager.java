@@ -2,7 +2,7 @@ package com.pluralsight;
 
 import java.util.Scanner;
 
-public abstract class UserInput {
+public abstract class ScreenManager {
     protected Scanner scanner = new Scanner(System.in);
 
     abstract void displayOptions();
