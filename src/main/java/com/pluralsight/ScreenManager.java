@@ -8,15 +8,15 @@ public abstract class ScreenManager {
     abstract void displayOptions();
 
     protected void welcomeMessage() {
-        System.out.print(Colors.GOLD.printWithColor("""
-                ██╗     ███████╗██████╗  ██████╗ ███████╗██████╗ ███████╗██╗      ██████╗ ██╗    ██╗
-                ██║     ██╔════╝██╔══██╗██╔════╝ ██╔════╝██╔══██╗██╔════╝██║     ██╔═══██╗██║    ██║
-                ██║     █████╗  ██║  ██║██║  ███╗█████╗  ██████╔╝█████╗  ██║     ██║   ██║██║ █╗ ██║
-                ██║     ██╔══╝  ██║  ██║██║   ██║██╔══╝  ██╔══██╗██╔══╝  ██║     ██║   ██║██║███╗██║
-                ███████╗███████╗██████╔╝╚██████╔╝███████╗██║  ██║██║     ███████╗╚██████╔╝╚███╔███╔╝
-                ╚══════╝╚══════╝╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝     ╚══════╝ ╚═════╝  ╚══╝╚══╝\s
-            
-                """));
+//        System.out.print(Colors.GOLD.printWithColor("""
+//                                    ██╗     ███████╗██████╗  ██████╗ ███████╗██████╗ ███████╗██╗      ██████╗ ██╗    ██╗
+//                                    ██║     ██╔════╝██╔══██╗██╔════╝ ██╔════╝██╔══██╗██╔════╝██║     ██╔═══██╗██║    ██║
+//                                    ██║     █████╗  ██║  ██║██║  ███╗█████╗  ██████╔╝█████╗  ██║     ██║   ██║██║ █╗ ██║
+//                                    ██║     ██╔══╝  ██║  ██║██║   ██║██╔══╝  ██╔══██╗██╔══╝  ██║     ██║   ██║██║███╗██║
+//                                    ███████╗███████╗██████╔╝╚██████╔╝███████╗██║  ██║██║     ███████╗╚██████╔╝╚███╔███╔╝
+//                                    ╚══════╝╚══════╝╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝     ╚══════╝ ╚═════╝  ╚══╝╚══╝\s
+//
+//                """));
         String[] systemBoot = {
                 "> Booting LedgerFlow...",
                 "> Loading transaction engine...",
@@ -70,9 +70,7 @@ public abstract class ScreenManager {
     }
 
     protected void printScreenTitle(String screenTitle) {
-        System.out.println(Colors.GOLD.printWithColor("\n╔════════════════════════════╗"));
-        System.out.printf(Colors.GOLD.printWithColor("║ %18s %9s\n"), screenTitle, "║");
-        System.out.println(Colors.GOLD.printWithColor("╚════════════════════════════╝"));
+        System.out.println(Colors.GOLD.printWithColor("\n" + screenTitle));
     }
 
     private void pauseProgram(long milliseconds) {

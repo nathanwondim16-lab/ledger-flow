@@ -24,7 +24,7 @@ public class TransactionForm {
         boolean transactionConfirmed = requestTransactionConfirmation(submitTransaction);
 
         if(transactionConfirmed) {
-            System.out.println(Colors.GREEN.printWithColor("\n===== TRANSACTION RECORDED \uD83E\uDDFE✅\n"));
+            System.out.println(Colors.GREEN.printWithColor("\n===== TRANSACTION RECORDED ✅\n"));
             TransactionProcessor.recordTransactions(submitTransaction);
         } else {
             System.out.println(Colors.CRIMSON.printWithColor("\n===== TRANSACTION DELETED ❌ =====\n"));

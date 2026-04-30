@@ -45,7 +45,7 @@ public class CustomSearch extends TransactionProcessor {
 
     private static LocalDate askForStartDate() {
         while(true) {
-            System.out.print("\nEnter start date (e.g., 04/27/26): ");
+            System.out.print("\nEnter start date (Optional) (e.g., 04/27/26): ");
             String date = scanner.nextLine().strip();
 
             if(date.isEmpty()) {
