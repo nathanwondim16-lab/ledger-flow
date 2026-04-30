@@ -5,10 +5,11 @@ public enum Colors {
     TRON(125, 253, 254),
     GOLD(255, 215, 0),
     GREEN(76, 175, 80),
-    ORANGE(255, 87, 34),
+    PURPLE(168, 85, 247),
     AMBER(255,191, 0),
     CRIMSON(220, 20, 60),
-    CHAMPAGNE_SILVER(210, 200, 190);
+    CHAMPAGNE_SILVER(210, 200, 190),
+    MUTED_GRAY(156, 163, 175);
 
 
     private final int R;

@@ -10,6 +10,8 @@ public class HomeScreen extends ScreenManager {
         welcomeMessage();
 
         String message = Colors.CHAMPAGNE_SILVER.printWithColor("""
+              
+              
               To get started please select one of the following options below
               
               D) Add Deposit
@@ -32,7 +34,7 @@ public class HomeScreen extends ScreenManager {
                     ledgerScreen.displayOptions();
                 }
 
-                default -> System.out.println(Colors.CRIMSON.printWithColor("\n===== Invalid option. Please try again. ====="));
+                default -> System.out.println(Colors.CRIMSON.printWithColor("\n\n===== Invalid option. Please try again. ====="));
             }
             System.out.print(message);
             userChoice = scanner.nextLine().strip();

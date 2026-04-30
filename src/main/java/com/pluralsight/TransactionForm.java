@@ -27,23 +27,28 @@ public class TransactionForm {
             System.out.println(Colors.GREEN.printWithColor("\n===== TRANSACTION RECORDED \uD83E\uDDFE✅\n"));
             TransactionProcessor.recordTransactions(submitTransaction);
         } else {
-            System.out.println(Colors.CRIMSON.printWithColor("\n===== TRANSACTION DELETED ❌ ====="));
+            System.out.println(Colors.CRIMSON.printWithColor("\n===== TRANSACTION DELETED ❌ =====\n"));
         }
     }
 
 
     // Method displays confirmation summary prompting user to confirm that they want to submit the transaction
     private static boolean requestTransactionConfirmation(Transaction transaction) {
-        System.out.println("\n\nPlease confirm this transaction");
+        System.out.println(Colors.PURPLE.printWithColor("\n\n===== PLEASE CONFIRM THIS TRANSACTION ====="));
+        System.out.printf(Colors.MUTED_GRAY.printWithColor("""
+                
+                DATE: %-20s
+                TIME: %-20s
+                DESCRIPTION: %-20s
+                VENDOR: %-20s
+                AMOUNT: $%-20.2f
+                """),transaction.getTransactionDate().format(DateTimeFormats.DATE),
+                     transaction.getTransactionTime().format(DateTimeFormats.TIME),
+                     transaction.getTransactionDescription(),
+                     transaction.getVendor(),
+                     transaction.getTransactionAmount());
 
-        System.out.printf("Date: %-20s\n", transaction.getTransactionDate().format(DateTimeFormats.DATE));
-        System.out.printf("Time: %-20s\n", transaction.getTransactionTime().format(DateTimeFormats.TIME));
-        System.out.printf("Description: %-20s\n", transaction.getTransactionDescription());
-        System.out.printf("Vendor: %-20s\n", transaction.getVendor());
-        System.out.printf("Amount: %-20s\n", transaction.getTransactionAmount());
-
-
-        System.out.print("\nSave transaction? (Y/N) ");
+        System.out.print(Colors.PURPLE.printWithColor("\nSave transaction? (Y/N) "));
         return scanner.nextLine().strip().equalsIgnoreCase("Y");
     }
 

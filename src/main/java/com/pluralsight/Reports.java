@@ -74,6 +74,7 @@ public class Reports extends TransactionProcessor {
 
             case 6 -> {
                 // Insert custom search logic here
+                CustomSearch.filterTransactions();
             }
 
             default -> System.out.println(Colors.CRIMSON.printWithColor("\n===== INVALID OPTION. PLEASE CHOOSE A VALID OPTION ====="));

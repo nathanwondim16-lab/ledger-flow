@@ -7,24 +7,44 @@ import java.util.Scanner;
 public class CustomSearch extends TransactionProcessor {
 
     private static final Scanner scanner = new Scanner(System.in);
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String description;
-    private String vendor;
-    private double amount;
+    private static LocalDate startDate;
+    private static LocalDate endDate;
+    private static String description;
+    private static String vendor;
+    private static Double amount;
 
-    private void filterTransactions() {
+    protected static void filterTransactions() {
         startDate = askForStartDate();
         endDate = askForEndDate();
-        List<Transaction> filteredList = transactionList.stream()
-                .filter(transaction -> !transaction.getTransactionDate().isBefore(startDate))
-                .filter(transaction -> endDate == null || !transaction.getTransactionDate().isAfter(endDate))
-                .toList();
+
+        System.out.print("\nEnter description (Optional): ");
+        description = scanner.nextLine().strip();
+
+        System.out.print("\nEnter vendor (Optional): ");
+        vendor = scanner.nextLine().strip();
+
+        amount = askForAmount();
+
+        System.out.println("\nHere are all the transactions based on your search values\n");
+
+        Ledger.ledgerHeader();
+
+        transactionList.stream()
+                .filter(t -> startDate == null || !t.getTransactionDate().isBefore(startDate))
+                .filter(t -> endDate == null || !t.getTransactionDate().isAfter(endDate))
+                .filter(t -> description == null || description.isBlank() ||
+                        t.getTransactionDescription().toLowerCase().contains(description.toLowerCase()))
+                .filter(t -> vendor == null || vendor.isBlank() ||
+                        t.getVendor().toLowerCase().contains(vendor.toLowerCase()))
+                .filter(t -> amount == null || Math.abs(t.getTransactionAmount() - amount) < 0.01)
+                .forEach(transaction -> {
+                    Colors color = transaction.getTransactionAmount() > 0 ? Colors.GREEN : Colors.CRIMSON;
+                    System.out.println(transaction.ledgerText(color));
+                });
+
+        Ledger.bottomLedgerCover();
 
 
-
-        System.out.println("Here are all the transactions based on your search values\n");
-        System.out.println(filteredList);
     }
 
 
@@ -32,6 +52,11 @@ public class CustomSearch extends TransactionProcessor {
         while(true) {
             System.out.print("\nEnter start date (e.g., 04/27/26): ");
             String date = scanner.nextLine().strip();
+
+            if(date.isEmpty()) {
+                return null;
+            }
+
             try {
                 return LocalDate.parse(date, DateTimeFormats.DATE);
             } catch (Exception e) {
@@ -65,10 +90,15 @@ public class CustomSearch extends TransactionProcessor {
 
 
     // Allow user to skip this field if they want
-    private static double askForAmount() {
+    private static Double askForAmount() {
         while(true) {
             System.out.print("\nEnter transaction amount (Optional): $");
             String amount = scanner.nextLine().strip();
+
+            if(amount.isEmpty()) {
+                return null;
+            }
+
             try {
                 return Double.parseDouble(amount);
             } catch (Exception e) {

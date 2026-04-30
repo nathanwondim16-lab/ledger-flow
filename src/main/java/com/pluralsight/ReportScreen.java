@@ -7,6 +7,8 @@ public class ReportScreen extends ScreenManager {
         int userChoice;
         while(true) {
             System.out.print(Colors.CHAMPAGNE_SILVER.printWithColor("""
+                
+                
                 Select one of the following options below
                 
                 1) Month to Date
@@ -14,7 +16,8 @@ public class ReportScreen extends ScreenManager {
                 3) Year To Date
                 4) Previous Year
                 5) Search by Vendor
-                
+                6) Custom Search
+             
                 Select option:\s"""));
             try {
                 userChoice = Integer.parseInt(scanner.nextLine());

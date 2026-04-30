@@ -19,7 +19,6 @@ public class LedgerScreen extends ScreenManager {
                Select option:\s""");
         System.out.print(ledgerOptions);
         String userChoice = scanner.nextLine().strip();
-        System.out.println("\n");
         while(!userChoice.equalsIgnoreCase("H")) {
             switch(userChoice.toUpperCase()) {
                 case "A" -> {
@@ -39,7 +38,7 @@ public class LedgerScreen extends ScreenManager {
                     reportScreen.displayOptions();
                 }
 
-                default -> System.out.println(Colors.CRIMSON.printWithColor("\n===== INVALID OPTION. PLEASE CHOOSE A VALID OPTION ====="));
+                default -> System.out.println(Colors.CRIMSON.printWithColor("===== INVALID OPTION. PLEASE CHOOSE A VALID OPTION ====="));
             }
             System.out.print(ledgerOptions);
             userChoice = scanner.nextLine().strip();
