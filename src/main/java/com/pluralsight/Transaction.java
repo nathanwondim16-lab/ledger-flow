@@ -2,7 +2,6 @@ package com.pluralsight;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 
 // Consider making this class a record
@@ -47,14 +46,5 @@ public class Transaction {
     public String toString() {
         return transactionDate.format(DateTimeFormats.DATE) + "|" + transactionTime.format(DateTimeFormats.TIME) + "|" + transactionDescription + "|"
                 + vendor + "|" + transactionAmount;
-    }
-
-    // Consider moving this method outside transaction class
-    public String ledgerText(Colors color) {
-        return String.format(Colors.TRON.printWithColor("║ %-10s ║ %-10s ║ %-18s ║ %-18s ║"),
-                transactionDate.format(DateTimeFormats.DATE), transactionTime.format(DateTimeFormats.TIME), transactionDescription, vendor)
-                + String.format(color.printWithColor(" $%-12.2f"), transactionAmount) + String.format(Colors.TRON.printWithColor("║\n")
-                + String.format(Colors.TRON.printWithColor("╢════════════║════════════║════════════════════║════════════════════║══════════════╢")));
-
     }
 }

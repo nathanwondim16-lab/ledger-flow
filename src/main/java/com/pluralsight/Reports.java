@@ -3,7 +3,6 @@ package com.pluralsight;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.Predicate;
 
 public class Reports extends TransactionProcessor {
 
@@ -72,8 +71,12 @@ public class Reports extends TransactionProcessor {
                 displayFilteredTransactions(transactions);
             }
 
+            case 0 -> {
+                LedgerScreen ledgerScreen = new LedgerScreen(); // Get rid of this and make LedgerScreen class static and displayOptions() static
+                ledgerScreen.displayOptions();
+            }
+
             case 6 -> {
-                // Insert custom search logic here
                 CustomSearch.filterTransactions();
             }
 
@@ -86,20 +89,7 @@ public class Reports extends TransactionProcessor {
         if(filteredTransactions.isEmpty()) {
             System.out.println(Colors.CRIMSON.printWithColor("\n===== NO TRANSACTIONS WERE FOUND. ====="));
         } else {
-            Ledger.ledgerHeader();
-
-            Predicate<Transaction> isDeposit = transaction -> transaction.getTransactionAmount() > 0;
-            Predicate<Transaction> isPayment = transaction -> transaction.getTransactionAmount() < 0;
-
-            filteredTransactions.stream()
-                    .filter(isDeposit)
-                    .forEach(transaction -> System.out.println(transaction.ledgerText(Colors.GREEN)));
-
-            filteredTransactions.stream()
-                    .filter(isPayment)
-                    .forEach(transaction -> System.out.println(transaction.ledgerText(Colors.CRIMSON)));
-
-            Ledger.bottomLedgerCover();
+            LedgerFormatting.calculateWidth(filteredTransactions);
         }
     }
 }

@@ -27,9 +27,7 @@ public class CustomSearch extends TransactionProcessor {
 
         System.out.println("\nHere are all the transactions based on your search values\n");
 
-        Ledger.ledgerHeader();
-
-        transactionList.stream()
+        List<Transaction> transactions = transactionList.stream()
                 .filter(t -> startDate == null || !t.getTransactionDate().isBefore(startDate))
                 .filter(t -> endDate == null || !t.getTransactionDate().isAfter(endDate))
                 .filter(t -> description == null || description.isBlank() ||
@@ -37,12 +35,9 @@ public class CustomSearch extends TransactionProcessor {
                 .filter(t -> vendor == null || vendor.isBlank() ||
                         t.getVendor().toLowerCase().contains(vendor.toLowerCase()))
                 .filter(t -> amount == null || Math.abs(t.getTransactionAmount() - amount) < 0.01)
-                .forEach(transaction -> {
-                    Colors color = transaction.getTransactionAmount() > 0 ? Colors.GREEN : Colors.CRIMSON;
-                    System.out.println(transaction.ledgerText(color));
-                });
+                .toList();
 
-        Ledger.bottomLedgerCover();
+        LedgerFormatting.calculateWidth(transactions);
 
 
     }

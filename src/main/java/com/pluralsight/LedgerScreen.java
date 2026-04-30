@@ -5,7 +5,7 @@ public class LedgerScreen extends ScreenManager {
 
     @Override
     public void displayOptions() { // Maybe make this protected
-        printScreenTitle("Ledger Screen");
+        printScreenTitle("LEDGER SCREEN");
         String ledgerOptions = Colors.CHAMPAGNE_SILVER.printWithColor("""
                
                
@@ -15,7 +15,7 @@ public class LedgerScreen extends ScreenManager {
                D) Deposits
                P) Payments
                R) Reports
-               H) Home - Go back to the homepage
+               H) Home - Go back to the Home Screen
                
                Select option:\s""");
         System.out.print(ledgerOptions);

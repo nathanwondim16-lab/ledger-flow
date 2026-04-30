@@ -11,6 +11,7 @@ public enum Colors {
     CHAMPAGNE_SILVER(210, 200, 190),
     MUTED_GRAY(156, 163, 175);
 
+    public static final String RESET = "\u001B[0m";
 
     private final int R;
     private final int G;
@@ -24,6 +25,10 @@ public enum Colors {
 
 
     public String printWithColor(String text) {
-        return "\u001B[38;2;" + R + ";" + G + ";" + B + "m" + text + "\u001b[0m";
+        return getCode() + text + RESET;
+    }
+
+    public String getCode() {
+        return "\u001B[38;2;" + R + ";" + G + ";" + B + "m";
     }
 }

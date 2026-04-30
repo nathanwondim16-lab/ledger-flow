@@ -1,6 +1,6 @@
 package com.pluralsight;
 
-import java.awt.*;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class Ledger extends TransactionProcessor {
@@ -20,25 +20,9 @@ public class Ledger extends TransactionProcessor {
 
     private static void formatTransactions(Predicate<Transaction> filter) {
         readTransactions();
-        ledgerHeader();
 
-        transactionList.stream()
-                .filter(filter)
-                .forEach(transaction -> {
-                    Colors color = transaction.getTransactionAmount() > 0 ? Colors.GREEN : Colors.CRIMSON;
-                    System.out.println(transaction.ledgerText(color));
-                });
+        List<Transaction> transactions = transactionList.stream().filter(filter).toList();
 
-        bottomLedgerCover();
-    }
-
-    public static void ledgerHeader() {
-        System.out.println(Colors.TRON.printWithColor("╔════════════╦════════════╦════════════════════╦════════════════════╦══════════════╗"));
-        System.out.println(Colors.TRON.printWithColor("║ Date       ║ Time       ║ Description        ║ Vendor             ║ Amount       ║"));
-        System.out.println(Colors.TRON.printWithColor("╠════════════╬════════════╬════════════════════╬════════════════════╬══════════════╣"));
-    }
-
-    public static void bottomLedgerCover() {
-        System.out.println(Colors.TRON.printWithColor("╚════════════╩════════════╩════════════════════╩════════════════════╩══════════════╝"));
+        LedgerFormatting.calculateWidth(transactions);
     }
 }

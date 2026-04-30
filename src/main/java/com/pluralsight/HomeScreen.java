@@ -8,7 +8,7 @@ public class HomeScreen extends ScreenManager {
 
     public void displayOptions() {
         welcomeMessage();
-        printScreenTitle("Home Screen");
+        printScreenTitle("HOME SCREEN");
         String message = Colors.CHAMPAGNE_SILVER.printWithColor("""
               
               
@@ -29,7 +29,6 @@ public class HomeScreen extends ScreenManager {
                 }
 
                 case "L" -> {
-
                     LedgerScreen ledgerScreen = new LedgerScreen(); // Get rid of this and make LedgerScreen class static and displayOptions() static
                     ledgerScreen.displayOptions();
                 }

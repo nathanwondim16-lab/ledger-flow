@@ -4,7 +4,7 @@ public class ReportScreen extends ScreenManager {
 
 
     public void displayOptions() {
-        printScreenTitle("Reports Screen");
+        printScreenTitle("REPORTS SCREEN");
         int userChoice;
         while(true) {
             System.out.print(Colors.CHAMPAGNE_SILVER.printWithColor("""
@@ -17,6 +17,8 @@ public class ReportScreen extends ScreenManager {
                 3) Year To Date
                 4) Previous Year
                 5) Search by Vendor
+                0) Go back to Ledger Screen
+                
                 6) Custom Search
              
                 Select option:\s"""));
@@ -27,7 +29,6 @@ public class ReportScreen extends ScreenManager {
                 System.out.println(Colors.CRIMSON.printWithColor("\n===== OPTIONS REQUIRE A NUMERICAL VALUE TO BE ENTERED ====="));
             }
         }
-        System.out.println(); // New Line
         Reports reports = new Reports();
         reports.reportsScreen(userChoice);
     }
