@@ -22,14 +22,12 @@ public class Ledger extends TransactionProcessor {
         readTransactions();
         ledgerHeader();
 
-        for(Transaction transaction : transactionList) {
-            if(filter.test(transaction)) {
-
-                Colors color = transaction.getTransactionAmount() > 0 ? Colors.GREEN : Colors.CRIMSON;
-
-                System.out.println(transaction.ledgerText(color));
-            }
-        }
+        transactionList.stream()
+                .filter(filter)
+                .forEach(transaction -> {
+                    Colors color = transaction.getTransactionAmount() > 0 ? Colors.GREEN : Colors.CRIMSON;
+                    System.out.println(transaction.ledgerText(color));
+                });
 
         bottomLedgerCover();
     }

@@ -4,7 +4,9 @@ public class ReportScreen extends ScreenManager {
 
 
     public void displayOptions() {
-        System.out.print(Colors.CHAMPAGNE_SILVER.printWithColor("""
+        int userChoice;
+        while(true) {
+            System.out.print(Colors.CHAMPAGNE_SILVER.printWithColor("""
                 Select one of the following options below
                 
                 1) Month to Date
@@ -14,7 +16,13 @@ public class ReportScreen extends ScreenManager {
                 5) Search by Vendor
                 
                 Select option:\s"""));
-        int userChoice = Integer.parseInt(scanner.nextLine());
+            try {
+                userChoice = Integer.parseInt(scanner.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println(Colors.CRIMSON.printWithColor("\n===== OPTIONS REQUIRE A NUMERICAL VALUE TO BE ENTERED ====="));
+            }
+        }
         System.out.println(); // New Line
         Reports reports = new Reports();
         reports.reportsScreen(userChoice);

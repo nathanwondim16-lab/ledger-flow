@@ -32,7 +32,7 @@ public class HomeScreen extends ScreenManager {
                     ledgerScreen.displayOptions();
                 }
 
-                default -> System.out.println("Invalid option. Please try again.\n");
+                default -> System.out.println(Colors.CRIMSON.printWithColor("\n===== Invalid option. Please try again. ====="));
             }
             System.out.print(message);
             userChoice = scanner.nextLine().strip();

@@ -39,7 +39,7 @@ public class LedgerScreen extends ScreenManager {
                     reportScreen.displayOptions();
                 }
 
-                default -> System.out.println("Invalid option. Please try again");
+                default -> System.out.println(Colors.CRIMSON.printWithColor("\n===== INVALID OPTION. PLEASE CHOOSE A VALID OPTION ====="));
             }
             System.out.print(ledgerOptions);
             userChoice = scanner.nextLine().strip();
