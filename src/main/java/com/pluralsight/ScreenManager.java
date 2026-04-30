@@ -24,8 +24,8 @@ public abstract class ScreenManager {
         };
 
         for (String line : systemBoot) {
-            System.out.print("\r" + line);
-            pauseProgram(700);
+            System.out.print("\r" + Colors.AMBER.printWithColor(line));
+            pauseProgram(1000);
         }
         System.out.println("\r ");
 

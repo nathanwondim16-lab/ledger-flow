@@ -11,9 +11,6 @@ public class Transaction {
     private final String vendor;
     private final double transactionAmount;
 
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
-    private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
-
     public Transaction(LocalDate transactionDate, LocalTime transactionTime
                        ,String transactionDescription, String vendor, double transactionAmount) {
 
@@ -46,12 +43,14 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return transactionDate.format(dateFormatter) + "|" + transactionTime.format(timeFormatter) + "|" + transactionDescription + "|"
+        return transactionDate.format(DateTimeFormats.DATE) + "|" + transactionTime.format(DateTimeFormats.TIME) + "|" + transactionDescription + "|"
                 + vendor + "|" + transactionAmount;
     }
 
-    public String ledgerText() {
-        return String.format(Colors.TRON.printWithColor("║ %-10s ║ %-10s ║ %-18s ║ %-18s ║ $%-12.2f║"),
-                transactionDate.format(dateFormatter), transactionTime.format(timeFormatter), transactionDescription, vendor, transactionAmount);
+    public String ledgerText(Colors color) {
+        return String.format(Colors.TRON.printWithColor("║ %-10s ║ %-10s ║ %-18s ║ %-18s ║"),
+                transactionDate.format(DateTimeFormats.DATE), transactionTime.format(DateTimeFormats.TIME), transactionDescription, vendor)
+                + String.format(color.printWithColor(" $%-12.2f"), transactionAmount) + String.format(Colors.TRON.printWithColor("║"));
+
     }
 }

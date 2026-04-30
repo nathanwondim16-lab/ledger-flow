@@ -84,7 +84,7 @@ public class Reports extends TransactionProcessor {
         } else {
             Ledger.ledgerHeader();
 
-            filteredTransactions.forEach(transaction -> System.out.println(transaction.ledgerText()));
+            //filteredTransactions.forEach(transaction -> System.out.println(transaction.ledgerText()));
 
             Ledger.bottomLedgerCover();
         }

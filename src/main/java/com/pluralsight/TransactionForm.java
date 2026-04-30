@@ -12,10 +12,10 @@ public class TransactionForm {
         LocalDate transactionDate = askForDate();
         LocalTime transactionTime = askForTime();
 
-        System.out.print("\nEnter description of the transaction: ");
+        System.out.print(Colors.TRON.printWithColor("\n===== Enter description of the transaction: "));
         String transactionDescription = scanner.nextLine().strip();
 
-        System.out.print("\nEnter name of the vendor: ");
+        System.out.print(Colors.TRON.printWithColor("\n===== Enter name of the vendor: "));
         String vendor = scanner.nextLine().strip();
 
         double transactionAmount = askForAmount();
@@ -24,10 +24,10 @@ public class TransactionForm {
         boolean transactionConfirmed = requestTransactionConfirmation(submitTransaction);
 
         if(transactionConfirmed) {
-            System.out.println("\nTransaction recorded \uD83E\uDDFE✅\n");
+            System.out.println(Colors.GREEN.printWithColor("\n===== TRANSACTION RECORDED \uD83E\uDDFE✅\n"));
             TransactionProcessor.recordTransactions(submitTransaction);
         } else {
-            System.out.println("\nTransaction deleted ❌");
+            System.out.println(Colors.CRIMSON.printWithColor("\n===== TRANSACTION DELETED ❌ ====="));
         }
     }
 
@@ -50,24 +50,24 @@ public class TransactionForm {
 
     private static LocalDate askForDate() {
         while(true) {
-            System.out.print("\nEnter transaction date (e.g., 04/27/26): ");
+            System.out.print(Colors.TRON.printWithColor("\n===== ENTER TRANSACTION DATE (e.g., 04/27/26): "));
             String date = scanner.nextLine().strip();
             try {
                 return LocalDate.parse(date, DateTimeFormats.DATE);
             } catch (Exception e) {
-                System.out.println("Invalid date format. Please try again");
+                System.out.println(Colors.CRIMSON.printWithColor("\n===== INVALID DATE FORMAT. PLEASE TRY AGAIN ====="));
             }
         }
     }
 
     private static LocalTime askForTime() {
         while(true) {
-            System.out.print("\nEnter transaction time (e.g., 03:15 PM): ");
+            System.out.print(Colors.TRON.printWithColor("\n===== ENTER TRANSACTION TIME (e.g., 03:15 PM): "));
             String time = scanner.nextLine().strip();
             try {
                 return LocalTime.parse(time, DateTimeFormats.TIME);
             } catch (Exception e) {
-                System.out.println("Invalid date format. Please try again");
+                System.out.println(Colors.CRIMSON.printWithColor("\n===== INVALID DATE FORMAT. PLEASE TRY AGAIN ====="));
             }
         }
     }
@@ -76,12 +76,12 @@ public class TransactionForm {
     // If they select payment and the amount is positive continue prompting them for the correct negative amount.
     private static double askForAmount() {
         while(true) {
-            System.out.print("\nEnter transaction amount: $");
+            System.out.print(Colors.TRON.printWithColor("\n===== ENTER TRANSACTION AMOUNT: $"));
             String amount = scanner.nextLine().strip();
             try {
                 return Double.parseDouble(amount);
             } catch (Exception e) {
-                System.out.println("Invalid amount (e.g., 123.45)");
+                System.out.println(Colors.CRIMSON.printWithColor("\n===== INVALID AMOUNT (e.g., 123.45) ====="));
             }
         }
     }
