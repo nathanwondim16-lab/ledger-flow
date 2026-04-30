@@ -69,6 +69,12 @@ public abstract class ScreenManager {
                 """);
     }
 
+    protected void printScreenTitle(String screenTitle) {
+        System.out.println(Colors.GOLD.printWithColor("\n╔════════════════════════════╗"));
+        System.out.printf(Colors.GOLD.printWithColor("║ %18s %9s\n"), screenTitle, "║");
+        System.out.println(Colors.GOLD.printWithColor("╚════════════════════════════╝"));
+    }
+
     private void pauseProgram(long milliseconds) {
         try {
             Thread.sleep(milliseconds);

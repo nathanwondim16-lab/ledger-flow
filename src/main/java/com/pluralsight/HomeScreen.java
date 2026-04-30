@@ -8,7 +8,7 @@ public class HomeScreen extends ScreenManager {
 
     public void displayOptions() {
         welcomeMessage();
-
+        printScreenTitle("Home Screen");
         String message = Colors.CHAMPAGNE_SILVER.printWithColor("""
               
               

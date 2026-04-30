@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+
+// Consider making this class a record
 public class Transaction {
     private final LocalDate transactionDate;
     private final LocalTime transactionTime;
@@ -47,10 +49,12 @@ public class Transaction {
                 + vendor + "|" + transactionAmount;
     }
 
+    // Consider moving this method outside transaction class
     public String ledgerText(Colors color) {
         return String.format(Colors.TRON.printWithColor("║ %-10s ║ %-10s ║ %-18s ║ %-18s ║"),
                 transactionDate.format(DateTimeFormats.DATE), transactionTime.format(DateTimeFormats.TIME), transactionDescription, vendor)
-                + String.format(color.printWithColor(" $%-12.2f"), transactionAmount) + String.format(Colors.TRON.printWithColor("║"));
+                + String.format(color.printWithColor(" $%-12.2f"), transactionAmount) + String.format(Colors.TRON.printWithColor("║\n")
+                + String.format(Colors.TRON.printWithColor("╢════════════║════════════║════════════════════║════════════════════║══════════════╢")));
 
     }
 }

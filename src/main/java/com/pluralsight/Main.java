@@ -15,5 +15,7 @@ public class Main {
 // Ask Gregor if the user is required to enter a start date for the custom search to workl
 // Ask Gregor about the amount portion of the custom search
 
+// Consider switching to BigDecimal for the transaction amount field/variable
+
  */
 

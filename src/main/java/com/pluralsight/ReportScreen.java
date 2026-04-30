@@ -4,6 +4,7 @@ public class ReportScreen extends ScreenManager {
 
 
     public void displayOptions() {
+        printScreenTitle("Reports Screen");
         int userChoice;
         while(true) {
             System.out.print(Colors.CHAMPAGNE_SILVER.printWithColor("""

@@ -5,6 +5,7 @@ public class LedgerScreen extends ScreenManager {
 
     @Override
     public void displayOptions() { // Maybe make this protected
+        printScreenTitle("Ledger Screen");
         String ledgerOptions = Colors.CHAMPAGNE_SILVER.printWithColor("""
                
                
