@@ -34,14 +34,10 @@ public class ReportScreen extends ScreenManager {
        
                 """);
 
-        int userChoice;
-
-        // Keep prompting until a valid numeric option is entered
-        while(true) {
-            System.out.print(Colors.CHAMPAGNE_SILVER.colorize("""
+        String reportOptions = Colors.CHAMPAGNE_SILVER.colorize("""
                 
                 
-                Select one of the following options below
+                Select one of the following options below:
                 
                 1) Month to Date
                 2) Previous Month
@@ -51,17 +47,27 @@ public class ReportScreen extends ScreenManager {
                 0) Go back to Ledger Screen
                 
                 6) Custom Search
-             
-                Select option:\s"""));
+                
+                Select option:\s""");
+
+        // Keep prompting until a valid numeric option is entered
+        while(true) {
+            System.out.print(reportOptions);
+
             try {
-                userChoice = Integer.parseInt(scanner.nextLine());
-                break;
+                int userChoice = Integer.parseInt(scanner.nextLine().strip());
+                System.out.println("\n"); // New Line
+
+                // Delegate selected option to Reports class for processing.
+                Reports.reportsOptions(userChoice);
+
+                if(userChoice == 0) {
+                    break;
+                }
+
             } catch (NumberFormatException e) {
                 System.out.println(Colors.CRIMSON.colorize("\n===== OPTIONS REQUIRE A NUMERICAL VALUE TO BE ENTERED ====="));
             }
         }
-
-        // Delegate selected option to Reports class for processing.
-        Reports.reportsOptions(userChoice);
     }
 }

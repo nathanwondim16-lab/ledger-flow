@@ -1,8 +1,21 @@
 package com.pluralsight;
 
+/**
+ * Displays teh ledger menu and handles user navigation for ledger-related actions.
+ *
+ * This screen allows the user to:
+ * - View all ledger entries
+ * - View deposits only
+ * - View payments only
+ * - Navigate to the reports screen
+ * - Return to the home screen
+ */
 public class LedgerScreen extends ScreenManager {
 
-
+    /**
+     * Displays the ledger meny, processes user input, and routes the user to the
+     * selected ledger feature.
+     */
     @Override
     protected void displayOptions() {
 
@@ -32,8 +45,11 @@ public class LedgerScreen extends ScreenManager {
                H) Home - Go back to the Home Screen
                
                Select option:\s""");
+
         System.out.print(ledgerOptions);
         String userChoice = scanner.nextLine().strip();
+
+        // Keep showing ledger options until the user chooses to return home.
         while(!userChoice.equalsIgnoreCase("H")) {
             switch(userChoice.toUpperCase()) {
                 case "A" -> {
@@ -53,8 +69,10 @@ public class LedgerScreen extends ScreenManager {
                     reportScreen.displayOptions();
                 }
 
-                default -> System.out.println(Colors.CRIMSON.colorize("===== INVALID OPTION. PLEASE CHOOSE A VALID OPTION ====="));
+                default -> System.out.println(Colors.CRIMSON.colorize("\n===== INVALID OPTION. PLEASE CHOOSE A VALID OPTION ====="));
             }
+
+            // Re-display menu after each action
             System.out.print(ledgerOptions);
             userChoice = scanner.nextLine().strip();
             System.out.println("\n");

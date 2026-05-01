@@ -28,23 +28,32 @@ public class CustomSearch extends TransactionProcessor {
 
     /**
      * Prompts the user for optional search values, filters the transaction list,
-     * and displays teh matching transactions.
+     * and displays the matching transactions.
      *
      * A blank search field is ignored, meaning that field will not limit the results.
      */
     protected static void filterTransactions() {
+        System.out.println(Colors.ORANGE_JUICE.colorize("""
+                ╔═══════════════════════════════════════════════════════╗
+                ║               🔍CUSTOM SEARCH MODE ACTIVE             ║
+                ╚═══════════════════════════════════════════════════════╝
+                
+                Refine your search by entering any of the fields below.
+                Leave a field blank to ignore it.
+
+                Press ENTER to skip any filter.
+                """));
         startDate = askForStartDate();
         endDate = askForEndDate();
 
-        System.out.print("\nEnter description (Optional): ");
+        System.out.print(Colors.ORANGE_JUICE.colorize("\nEnter description (Optional): "));
         description = scanner.nextLine().strip();
 
-        System.out.print("\nEnter vendor (Optional): ");
+        System.out.print(Colors.ORANGE_JUICE.colorize("\nEnter vendor (Optional): "));
         vendor = scanner.nextLine().strip();
 
         amount = askForAmount();
 
-        System.out.println("\nHere are all the transactions based on your search values\n");
 
         List<Transaction> transactions = transactionList.stream()
 
@@ -66,7 +75,11 @@ public class CustomSearch extends TransactionProcessor {
                 .filter(t -> amount == null || Math.abs(t.transactionAmount() - amount) < 0.01)
                 .toList();
 
-        LedgerFormatting.calculateWidth(transactions);
+        if(!transactions.isEmpty()) {
+            LedgerFormatting.calculateWidth(transactions);
+        } else {
+            System.out.println(Colors.CRIMSON.colorize("\n\n===== THERE ARE NO TRANSACTIONS MATCHING YOUR SEARCH ====="));
+        }
 
 
     }
@@ -81,7 +94,7 @@ public class CustomSearch extends TransactionProcessor {
      */
     private static LocalDate askForStartDate() {
         while(true) {
-            System.out.print("\nEnter start date (Optional) (e.g., 04/27/26): ");
+            System.out.print(Colors.ORANGE_JUICE.colorize("\nEnter start date (Optional) (e.g., 04/27/26): "));
             String date = scanner.nextLine().strip();
 
             if(date.isEmpty()) {
@@ -91,7 +104,7 @@ public class CustomSearch extends TransactionProcessor {
             try {
                 return LocalDate.parse(date, DateTimeFormats.DATE);
             } catch (Exception e) {
-                System.out.println("Invalid date format. Please try again");
+                System.out.println(Colors.CRIMSON.colorize("===== INVALID DATE FORMAT. PLEASE TRY AGAIN ====="));
             }
         }
     }
@@ -106,7 +119,7 @@ public class CustomSearch extends TransactionProcessor {
      */
     private static LocalDate askForEndDate() {
         while(true) {
-            System.out.print("\nEnter end date (Optional) (e.g., 04/27/26): ");
+            System.out.print(Colors.ORANGE_JUICE.colorize("\nEnter end date (Optional) (e.g., 04/27/26): "));
             String date = scanner.nextLine().strip();
 
             if(date.isEmpty()) {
@@ -116,7 +129,7 @@ public class CustomSearch extends TransactionProcessor {
             try {
                 return LocalDate.parse(date, DateTimeFormats.DATE);
             } catch (Exception e) {
-                System.out.println("Invalid date format. Please try again");
+                System.out.println(Colors.CRIMSON.colorize("===== INVALID DATE FORMAT. PLEASE TRY AGAIN ====="));
             }
         }
     }
@@ -132,7 +145,7 @@ public class CustomSearch extends TransactionProcessor {
      */
     private static Double askForAmount() {
         while(true) {
-            System.out.print("\nEnter transaction amount (Optional): $");
+            System.out.print(Colors.ORANGE_JUICE.colorize("\nEnter transaction amount (Optional): $"));
             String amount = scanner.nextLine().strip();
 
             if(amount.isEmpty()) {
@@ -142,7 +155,7 @@ public class CustomSearch extends TransactionProcessor {
             try {
                 return Double.parseDouble(amount);
             } catch (Exception e) {
-                System.out.println("Invalid amount (e.g., 123.45)");
+                System.out.println(Colors.CRIMSON.colorize("===== INVALID AMOUNT. PLEASE ENTER A VALID AMOUNT (e.g., 123.45) ====="));
             }
         }
     }
