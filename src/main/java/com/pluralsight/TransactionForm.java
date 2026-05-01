@@ -24,8 +24,10 @@ public class TransactionForm {
      * and asks the user to confirm before saving.
      *
      * If confirmed, the transaction is written to storage
+     *
+     * @param transactionType Is the transaction a deposit or payment?
      */
-    protected static void getTransactionDetails() {
+    protected static void getTransactionDetails(String transactionType) {
         LocalDate transactionDate = askForDate();
         LocalTime transactionTime = askForTime();
 
@@ -35,14 +37,14 @@ public class TransactionForm {
         System.out.print(Colors.TRON.colorize("\n===== Enter name of the vendor: "));
         String vendor = scanner.nextLine().strip();
 
-        double transactionAmount = askForAmount();
+        double transactionAmount = askForAmount(transactionType);
 
         // Creates transaction record from user input.
         Transaction submitTransaction = new Transaction(transactionDate, transactionTime, transactionDescription, vendor, transactionAmount);
         boolean transactionConfirmed = requestTransactionConfirmation(submitTransaction);
 
         if(transactionConfirmed) {
-            System.out.println(Colors.GREEN.colorize("\n===== TRANSACTION RECORDED ✅\n"));
+            System.out.println(Colors.GREEN.colorize("\n\n===== TRANSACTION RECORDED ✅\n"));
             TransactionProcessor.recordTransactions(submitTransaction);
         } else {
             System.out.println(Colors.CRIMSON.colorize("\n===== TRANSACTION DELETED ❌ =====\n"));
@@ -124,15 +126,19 @@ public class TransactionForm {
      * Accepts positive or negative decimal values and continues prompting
      * until a valid number is entered.
      *
+     * @param transactionType Is the transaction a deposit or payment?
      * @return the parsed transaction amount as a double
      */
-    private static double askForAmount() {
+    private static double askForAmount(String transactionType) {
         while(true) {
             System.out.print(Colors.TRON.colorize("\n===== ENTER TRANSACTION AMOUNT: $"));
             String amount = scanner.nextLine().strip();
 
             try {
-                return Double.parseDouble(amount);
+                if(transactionType.equalsIgnoreCase("Deposit")) {
+                    return Math.abs(Double.parseDouble(amount));
+                }
+                return -Math.abs(Double.parseDouble(amount));
             } catch (Exception e) {
                 System.out.println(Colors.CRIMSON.colorize("\n===== INVALID AMOUNT (e.g., 123.45) ====="));
             }

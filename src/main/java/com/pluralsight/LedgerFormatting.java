@@ -99,10 +99,7 @@ public class LedgerFormatting {
             row = row.replace(paddedAmount, amountColor.getCode() + paddedAmount + Colors.TRON.getCode());
 
             System.out.println(Colors.TRON.getCode() + row + Colors.RESET);
-
-            System.out.println(Colors.TRON.colorize(row));
         }
-
 
         System.out.println(Colors.TRON.colorize(bottomBox));
     }

@@ -33,8 +33,12 @@ public class HomeScreen extends ScreenManager {
         String userChoice = scanner.nextLine().strip();
         while (!userChoice.equalsIgnoreCase("X")) {
             switch (userChoice.toUpperCase()) {
-                case "D", "P" -> {
-                    TransactionForm.getTransactionDetails();
+                case "D" -> {
+                    TransactionForm.getTransactionDetails("Deposit");
+                }
+
+                case "P" -> {
+                    TransactionForm.getTransactionDetails("Payment");
                 }
 
                 case "L" -> {
