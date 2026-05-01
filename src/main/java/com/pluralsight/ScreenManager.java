@@ -8,7 +8,7 @@ public abstract class ScreenManager {
     abstract void displayOptions();
 
     protected void welcomeMessage() {
-//        System.out.print(Colors.GOLD.printWithColor("""
+//        System.out.print(Colors.GOLD.colorize("""
 //                                    ██╗     ███████╗██████╗  ██████╗ ███████╗██████╗ ███████╗██╗      ██████╗ ██╗    ██╗
 //                                    ██║     ██╔════╝██╔══██╗██╔════╝ ██╔════╝██╔══██╗██╔════╝██║     ██╔═══██╗██║    ██║
 //                                    ██║     █████╗  ██║  ██║██║  ███╗█████╗  ██████╔╝█████╗  ██║     ██║   ██║██║ █╗ ██║
@@ -24,14 +24,14 @@ public abstract class ScreenManager {
         };
 
         for (String line : systemBoot) {
-            System.out.print("\r" + Colors.AMBER.printWithColor(line));
+            System.out.print("\r" + Colors.AMBER.colorize(line));
             pauseProgram(1000);
         }
         System.out.println("\r ");
 
         String progressBar = "████████████████████████████";
         for(int i = 0; i < progressBar.length(); i++) {
-            System.out.print(Colors.GREEN.printWithColor("\rLoading: " + progressBar.substring(0, i + 1) + " " + (i + 1) * 100 / progressBar.length() + "%"));
+            System.out.print(Colors.GREEN.colorize("\rLoading: " + progressBar.substring(0, i + 1) + " " + (i + 1) * 100 / progressBar.length() + "%"));
             pauseProgram(100);
         }
         System.out.println("\r ");
@@ -53,7 +53,7 @@ public abstract class ScreenManager {
             pauseProgram(1000);
             System.out.print("\r ");
         }
-        System.out.println(Colors.GOLD.printWithColor("""
+        System.out.println(Colors.GOLD.colorize("""
                   ██████╗  ██████╗  ██████╗ ██████╗ ██████╗ ██╗   ██╗███████╗
                  ██╔════╝ ██╔═══██╗██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝██╔════╝
                  ██║  ███╗██║   ██║██║   ██║██████╔╝██████╔╝ ╚████╔╝ █████╗ \s
@@ -70,7 +70,7 @@ public abstract class ScreenManager {
     }
 
     protected void printScreenTitle(String screenTitle) {
-        System.out.println(Colors.GOLD.printWithColor("\n" + screenTitle));
+        System.out.println(Colors.GOLD.colorize("\n" + screenTitle));
     }
 
     private void pauseProgram(long milliseconds) {

@@ -4,7 +4,9 @@ public class LedgerScreen extends ScreenManager {
 
 
     @Override
-    public void displayOptions() { // Maybe make this protected
+    protected void displayOptions() {
+
+        // Display stylized screen title
         printScreenTitle("""
                 ██╗     ███████╗██████╗  ██████╗ ███████╗██████╗     ███████╗ ██████╗██████╗ ███████╗███████╗███╗   ██╗
                 ██║     ██╔════╝██╔══██╗██╔════╝ ██╔════╝██╔══██╗    ██╔════╝██╔════╝██╔══██╗██╔════╝██╔════╝████╗  ██║
@@ -13,7 +15,7 @@ public class LedgerScreen extends ScreenManager {
                 ███████╗███████╗██████╔╝╚██████╔╝███████╗██║  ██║    ███████║╚██████╗██║  ██║███████╗███████╗██║ ╚████║
                 ╚══════╝╚══════╝╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝    ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝
                 """);
-        String ledgerOptions = Colors.CHAMPAGNE_SILVER.printWithColor("""
+        String ledgerOptions = Colors.CHAMPAGNE_SILVER.colorize("""
                
                Select one of the following options below
               
@@ -45,7 +47,7 @@ public class LedgerScreen extends ScreenManager {
                     reportScreen.displayOptions();
                 }
 
-                default -> System.out.println(Colors.CRIMSON.printWithColor("===== INVALID OPTION. PLEASE CHOOSE A VALID OPTION ====="));
+                default -> System.out.println(Colors.CRIMSON.colorize("===== INVALID OPTION. PLEASE CHOOSE A VALID OPTION ====="));
             }
             System.out.print(ledgerOptions);
             userChoice = scanner.nextLine().strip();

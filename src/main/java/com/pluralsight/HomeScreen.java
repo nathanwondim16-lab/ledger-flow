@@ -8,6 +8,8 @@ public class HomeScreen extends ScreenManager {
 
     public void displayOptions() {
         welcomeMessage();
+
+        // Display stylized screen title
         printScreenTitle("""
                 ██╗  ██╗ ██████╗ ███╗   ███╗███████╗    ███████╗ ██████╗██████╗ ███████╗███████╗███╗   ██╗
                 ██║  ██║██╔═══██╗████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██╔════╝██╔════╝████╗  ██║
@@ -16,7 +18,7 @@ public class HomeScreen extends ScreenManager {
                 ██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗    ███████║╚██████╗██║  ██║███████╗███████╗██║ ╚████║
                 ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝    ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝
                 """);
-        String message = Colors.CHAMPAGNE_SILVER.printWithColor("""
+        String message = Colors.CHAMPAGNE_SILVER.colorize("""
               
               
               To get started please select one of the following options below
@@ -36,11 +38,11 @@ public class HomeScreen extends ScreenManager {
                 }
 
                 case "L" -> {
-                    LedgerScreen ledgerScreen = new LedgerScreen(); // Get rid of this and make LedgerScreen class static and displayOptions() static
+                    LedgerScreen ledgerScreen = new LedgerScreen();
                     ledgerScreen.displayOptions();
                 }
 
-                default -> System.out.println(Colors.CRIMSON.printWithColor("\n\n===== Invalid option. Please try again. ====="));
+                default -> System.out.println(Colors.CRIMSON.colorize("\n\n===== Invalid option. Please try again. ====="));
             }
             System.out.print(message);
             userChoice = scanner.nextLine().strip();

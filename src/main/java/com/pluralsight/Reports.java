@@ -4,10 +4,29 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles preset transaction reports for the ledger.
+ *
+ * This class allows users to view filtered transaction reports, including:
+ * - Month to Date
+ * - Previous month
+ * - Year to date
+ * - Previous year
+ * - Vendor search
+ * - Custom search
+ */
 public class Reports extends TransactionProcessor {
 
-    public void reportsScreen(int numberChoice) {
-        readTransactions(); // Calling readtransactions() method to restore the transactionList with the transactions
+    /**
+     * Displays the selected report based on the user's menu choice.
+     *
+     * Reloads transactions from the CSV file before filtering to make sure
+     * the reports use the most up-to-date transaction data.
+     *
+     * @param numberChoice the report option selected by the user
+     */
+    protected static void reportsOptions(int numberChoice) {
+        readTransactions();
 
         switch(numberChoice) {
 
@@ -17,8 +36,8 @@ public class Reports extends TransactionProcessor {
 
 
                 List<Transaction> transactions = transactionList.stream()
-                        .filter(transaction -> !transaction.getTransactionDate().isBefore(monthToDate) &&
-                                !transaction.getTransactionDate().isAfter(LocalDate.now()))
+                        .filter(transaction -> !transaction.transactionDate().isBefore(monthToDate) &&
+                                !transaction.transactionDate().isAfter(LocalDate.now()))
                         .toList();
 
                 displayFilteredTransactions(transactions);
@@ -29,7 +48,8 @@ public class Reports extends TransactionProcessor {
                 LocalDate previousMonth = LocalDate.now().minusMonths(1).withDayOfMonth(1);
 
                 List<Transaction> transactions = transactionList.stream()
-                        .filter(transaction -> transaction.getTransactionDate().getMonthValue() == previousMonth.getMonthValue())
+                        .filter(transaction -> transaction.transactionDate().getMonthValue() == previousMonth.getMonthValue()
+                        && transaction.transactionDate().getYear() == previousMonth.getYear())
                         .toList();
 
                 displayFilteredTransactions(transactions);
@@ -40,8 +60,8 @@ public class Reports extends TransactionProcessor {
                 LocalDate yearStart = LocalDate.now().withDayOfYear(1);
 
                 List<Transaction> transactions = transactionList.stream()
-                        .filter(transaction -> !transaction.getTransactionDate().isBefore(yearStart)
-                                && transaction.getTransactionDate().isBefore(LocalDate.now()))
+                        .filter(transaction -> !transaction.transactionDate().isBefore(yearStart)
+                                && !transaction.transactionDate().isAfter(LocalDate.now()))
                         .toList();
 
                 displayFilteredTransactions(transactions);
@@ -52,7 +72,7 @@ public class Reports extends TransactionProcessor {
                 LocalDate lastYear = LocalDate.now().minusYears(1);
 
                 List<Transaction> transactions =  transactionList.stream()
-                        .filter(transaction -> transaction.getTransactionDate().getYear() == lastYear.getYear())
+                        .filter(transaction -> transaction.transactionDate().getYear() == lastYear.getYear())
                         .toList();
 
                 displayFilteredTransactions(transactions);
@@ -65,14 +85,14 @@ public class Reports extends TransactionProcessor {
                 String vendor = scanner.nextLine().strip();
 
                 List<Transaction> transactions = transactionList.stream()
-                        .filter(transaction -> transaction.getVendor().equalsIgnoreCase(vendor))
+                        .filter(transaction -> transaction.vendor().equalsIgnoreCase(vendor))
                         .toList();
 
                 displayFilteredTransactions(transactions);
             }
 
             case 0 -> {
-                LedgerScreen ledgerScreen = new LedgerScreen(); // Get rid of this and make LedgerScreen class static and displayOptions() static
+                LedgerScreen ledgerScreen = new LedgerScreen();
                 ledgerScreen.displayOptions();
             }
 
@@ -80,14 +100,21 @@ public class Reports extends TransactionProcessor {
                 CustomSearch.filterTransactions();
             }
 
-            default -> System.out.println(Colors.CRIMSON.printWithColor("\n===== INVALID OPTION. PLEASE CHOOSE A VALID OPTION ====="));
+            default -> System.out.println(Colors.CRIMSON.colorize("\n===== INVALID OPTION. PLEASE CHOOSE A VALID OPTION ====="));
         }
     }
 
-    private void displayFilteredTransactions(List<Transaction> filteredTransactions) {
+    /**
+     * Displays filtered transactions if any exist.
+     *
+     * If no transactions match the selected report, an error message is shown instead.
+     *
+     * @param filteredTransactions the transactions that matched teh report filter
+     */
+    private static void displayFilteredTransactions(List<Transaction> filteredTransactions) {
 
         if(filteredTransactions.isEmpty()) {
-            System.out.println(Colors.CRIMSON.printWithColor("\n===== NO TRANSACTIONS WERE FOUND. ====="));
+            System.out.println(Colors.CRIMSON.colorize("\n===== NO TRANSACTIONS WERE FOUND. ====="));
         } else {
             LedgerFormatting.calculateWidth(filteredTransactions);
         }

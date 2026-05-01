@@ -1,9 +1,28 @@
 package com.pluralsight;
 
+/**
+ * Displays the Reports menu and handles user selection.
+ *
+ * This screen allows the user to choose from predefined report options:
+ * - Month to Date
+ * - Previous month
+ * - Year to date
+ * - Previous year
+ * - Vendor search
+ * - Custom search
+ *
+ * After a valid option is selected, control is passed to the Reports class to
+ * process and display the corresponding data.
+ */
 public class ReportScreen extends ScreenManager {
 
-
+    /**
+     * Displays the reports menu, validates user input, and routes the selection
+     * to the appropriate report logic.
+     */
     public void displayOptions() {
+
+        // Display stylized screen title
         printScreenTitle("""
                 ██████╗ ███████╗██████╗  ██████╗ ██████╗ ████████╗███████╗    ███████╗ ██████╗██████╗ ███████╗███████╗███╗   ██╗
                 ██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝    ██╔════╝██╔════╝██╔══██╗██╔════╝██╔════╝████╗  ██║
@@ -16,8 +35,10 @@ public class ReportScreen extends ScreenManager {
                 """);
 
         int userChoice;
+
+        // Keep prompting until a valid numeric option is entered
         while(true) {
-            System.out.print(Colors.CHAMPAGNE_SILVER.printWithColor("""
+            System.out.print(Colors.CHAMPAGNE_SILVER.colorize("""
                 
                 
                 Select one of the following options below
@@ -36,10 +57,11 @@ public class ReportScreen extends ScreenManager {
                 userChoice = Integer.parseInt(scanner.nextLine());
                 break;
             } catch (NumberFormatException e) {
-                System.out.println(Colors.CRIMSON.printWithColor("\n===== OPTIONS REQUIRE A NUMERICAL VALUE TO BE ENTERED ====="));
+                System.out.println(Colors.CRIMSON.colorize("\n===== OPTIONS REQUIRE A NUMERICAL VALUE TO BE ENTERED ====="));
             }
         }
-        Reports reports = new Reports();
-        reports.reportsScreen(userChoice);
+
+        // Delegate selected option to Reports class for processing.
+        Reports.reportsOptions(userChoice);
     }
 }
