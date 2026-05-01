@@ -122,3 +122,15 @@ java -version
 4. Make sure your project SDK is set to Java 17+
 5. Locate and run the main class:
    * `HomeScreen.java`
+
+---
+
+## Author
+Created by [Nathan Wondim](https://github.com/nathanwondim16-lab/ledger-flow) - [nathanwondim16@gmail.com](nathanwondim16:email@gmail.com)
+
+---
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+--- 
