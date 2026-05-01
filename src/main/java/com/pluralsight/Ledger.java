@@ -44,6 +44,10 @@ public class Ledger extends TransactionProcessor {
                 .filter(filter)
                 .toList();
 
-        LedgerFormatting.calculateWidth(transactions);
+        if(!transactions.isEmpty()) {
+            LedgerFormatting.calculateWidth(transactions);
+        } else {
+            System.out.println(Colors.CRIMSON.colorize("\n===== NO TRANSACTIONS WERE FOUND. ====="));
+        }
     }
 }
